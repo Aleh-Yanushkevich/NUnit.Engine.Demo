@@ -16,7 +16,11 @@ namespace Demo.Test.Internal
 
             var testRunner = new TestEngine().GetRunner(testPackage);
 
-            testRunner.Run(listener, TestFilter.Empty);
+            var node = testRunner.Run(listener, TestFilter.Empty);
+
+            var failed = node.SelectNodes("//test-case[@result=\"Failed\"]");
+
+            Assert.That(failed!.Count, Is.EqualTo(0));
         }
     }
 }
